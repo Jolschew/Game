@@ -47,12 +47,6 @@
         <jar jarfile="${dist}/lib/Game-${DSTAMP}.jar" basedir="${build}"/>
     </target>
 
-    <!-- run JUnit Test -->
-    <target name="test" depends="compile">
-           <junit fork="yes" printsummary="yes" haltonfailure="yes">
-               <test name="Test"/>
-           </junit>
-    </target>
     <!-- Delete existing build -->
     <target name="clean">
         <delete dir="${build}"/>

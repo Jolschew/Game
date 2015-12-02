@@ -32,8 +32,6 @@
             </fileset>
         </javadoc>
     </target>
-    
-<!--
     <!-- Run program -->
     <target name="run" depends="compile, dist">
         <java classname="Main" fork="true">
@@ -55,8 +53,6 @@
                <test name="Test"/>
            </junit>
     </target>
--->
-
     <!-- Delete existing build -->
     <target name="clean">
         <delete dir="${build}"/>

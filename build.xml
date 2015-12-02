@@ -33,7 +33,7 @@
         </javadoc>
     </target>
     <!-- Run program -->
-    <target name="run" depends="compile, dist">
+    <target name="run" depends="compile, dist, javadoc">
         <java classname="Main" fork="true">
             <classpath path="${build}"/>
         </java>

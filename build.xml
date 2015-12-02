@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project name="Game" default="run" basedir=".">
+    <description>
+        ANT Build with Tasks Test, Compile, Run and Clean for Java Project Game
+    </description>
+    <!-- Global Build properties-->
+    <property name="root" location="./Ant"/>
+    <property name="src" location="src/"/>
+    <property name="build" location="${root}/build"/>
+    <property name="dist" location="${root}/dist"/>
+    <property name="docs" location="${root}/docs"/>
+
+    <target name="init">
+        <!-- Create timestamp -->
+        <tstamp/>
+        <!-- Create build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+        <mkdir dir="${docs}"/>
+    </target>
+
+    <!-- Compile Java Code from ${src} into ${build} -->
+    <target name="compile" depends="init" >
+        <javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+    </target>
+
+    <!-- Create JavaDoc -->
+    <target name="javadoc">
+        <javadoc packagenames="src" sourcepath="${src}" destdir="${docs}">
+            <!-- Define which files should get included. *.* = ALL -->
+            <fileset dir="${src}">
+                <include name="*.*"/>
+            </fileset>
+        </javadoc>
+    </target>
+
+    <!-- Run program -->
+    <target name="run" depends="compile, dist">
+        <java classname="Main" fork="true">
+            <classpath path="${build}"/>
+        </java>
+    </target>
+
+    <!-- Generate distribution -->
+    <target name="dist" depends="compile">
+        <!-- Create distribution directory -->
+        <mkdir dir="${dist}/lib/"/>
+        <!-- Create jar file from ${build} -->
+        <jar jarfile="${dist}/lib/Game-${DSTAMP}.jar" basedir="${build}"/>
+    </target>
+
+    <!-- run JUnit Test -->
+    <target name="test" depends="compile">
+           <junit fork="yes" printsummary="yes" haltonfailure="yes">
+               <test name="Test"/>
+           </junit>
+    </target>
+
+    <!-- Delete existing build -->
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${docs}"/>
+    </target>
+</project>
+
+
